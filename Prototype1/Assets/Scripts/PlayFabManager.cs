@@ -14,11 +14,12 @@ public class PlayFabManager : MonoBehaviour
     public InputField password;
     public InputField email;
     public bool isAuth = false;
+    public Canvas lobby;
+    public Canvas auth;
     
     void Start()
     {
         email.gameObject.SetActive(false);
-        DontDestroyOnLoad(this);
     }
 
     // Update is called once per frame
@@ -34,12 +35,13 @@ public class PlayFabManager : MonoBehaviour
         loginReq.Password = password.text;
         PlayFabClientAPI.LoginWithPlayFab(loginReq, result => {
             isAuth = true;
-           // SceneManager.LoadScene("Menu");
             Debug.Log("You are login");
             PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = loginReq.Username }, OnDisplayName, OnLoginFailure);
             PlayerPrefs.SetString("login", loginReq.Username);
-       //     PlayerPrefs.SetInt("rank", loginReq.Username);
-       //     PlayerPrefs.SetInt("score", loginReq.Username);
+            //     PlayerPrefs.SetInt("rank", loginReq.Username);
+            //     PlayerPrefs.SetInt("score", loginReq.Username);
+            auth.gameObject.SetActive(false);
+            lobby.enabled = true;
         }, error => {
             isAuth = false;
             Debug.Log(error.ErrorMessage);

@@ -10,6 +10,8 @@ TagManager:
   - Button
   - SelectButton
   - Ground
+  - Lobby
+  - Auth
   layers:
   - Default
   - TransparentFX
