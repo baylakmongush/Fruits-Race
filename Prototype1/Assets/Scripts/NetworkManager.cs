@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public Text LogText;
+    public Text UserName;
+
     void Start()
     {
         PhotonNetwork.NickName = "Player" + Random.Range(1, 1000);
@@ -14,6 +16,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Log("Player's name is set to " + PhotonNetwork.NickName);
         PhotonNetwork.GameVersion = "1";
         PhotonNetwork.ConnectUsingSettings();
+        UserName.text = "HELLO, + " + PlayerPrefs.GetString("login") + "!";
     }
 
     public override void OnConnectedToMaster()
