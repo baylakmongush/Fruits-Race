@@ -75,13 +75,17 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\IgnoreUiRaycastWhenInactive.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
     <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
+    <Compile Include="Assets\Scripts\BonusDestroy.cs" />
+    <Compile Include="Assets\Scripts\DestroyPlat.cs" />
     <Compile Include="Assets\Scripts\Game\CameraWork.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
     <Compile Include="Assets\Scripts\Game\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Game\SelectManager.cs" />
     <Compile Include="Assets\Scripts\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\PlayFabManager.cs" />
+    <Compile Include="Assets\Scripts\Quiz.cs" />
     <Compile Include="Assets\Scripts\SaveData.cs" />
+    <Compile Include="Assets\Scripts\Virus.cs" />
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.xml" />
     <None Include="Assets\Photon\PhotonUnityNetworking\changelog.txt" />
     <None Include="Assets\Photon\PhotonLibs\changes-library.txt" />

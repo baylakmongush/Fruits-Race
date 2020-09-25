@@ -12,6 +12,13 @@ TagManager:
   - Ground
   - Lobby
   - Auth
+  - Wall_right
+  - Wall_left
+  - Enemy
+  - Heart
+  - Score
+  - Teleport
+  - Quiz
   layers:
   - Default
   - TransparentFX

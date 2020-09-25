@@ -16,17 +16,16 @@ public class PlayFabManager : MonoBehaviour
     public bool isAuth = false;
     public Canvas lobby;
     public Canvas auth;
+    public Text rankText;
+    public Text usernameText;
+    public Text rank;
+    public Text score;
     
     void Start()
     {
         email.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     #region Autorization
     public void Login()
     {
@@ -38,8 +37,10 @@ public class PlayFabManager : MonoBehaviour
             Debug.Log("You are login");
             PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = loginReq.Username }, OnDisplayName, OnLoginFailure);
             PlayerPrefs.SetString("login", loginReq.Username);
-            //     PlayerPrefs.SetInt("rank", loginReq.Username);
+            usernameText.text = "Привет, " + loginReq.Username + "!";
+            SetStats();
             //     PlayerPrefs.SetInt("score", loginReq.Username);
+            GetLeaderBoard();
             auth.gameObject.SetActive(false);
             lobby.enabled = true;
         }, error => {
@@ -81,14 +82,44 @@ public class PlayFabManager : MonoBehaviour
         PlayFabClientAPI.GetLeaderboard(getLeaderboardRequest, OnGetLeaderboard, OnErrorBoard);
     }
 
+    public void SetStats()
+    {
+        PlayFabClientAPI.UpdatePlayerStatistics(new UpdatePlayerStatisticsRequest
+        {
+            Statistics = new List<StatisticUpdate> { new StatisticUpdate { StatisticName = "Score", Value = GetHighScore()
+    }, }
+        },
+        result => { Debug.Log("User Statistics update"); },
+        error => { Debug.LogError(error.GenerateErrorReport());
+        });
+    }
+
+    int GetHighScore()
+    {
+        int resultScore;
+        resultScore = Math.Max(PlayerPrefs.GetInt("score_temp"), PlayerPrefs.GetInt("Score"));
+        return resultScore;
+    }
+
+
+
     void OnGetLeaderboard(GetLeaderboardResult result)
     {
         Debug.Log(result.Leaderboard[0].StatValue);
+        int i = 1;
         foreach (PlayerLeaderboardEntry player in result.Leaderboard)
         {
             Debug.Log(player.DisplayName + ": " + player.StatValue);
+            rankText.text += i + " " + player.DisplayName + " " + player.StatValue + "\n";
+            if (loginReq.Username == player.DisplayName)
+            {
+                rank.text = i.ToString();
+                score.text = player.StatValue.ToString();
+            }
+            i++;
         }
     }
+
 
     void OnErrorBoard(PlayFabError error)
     {

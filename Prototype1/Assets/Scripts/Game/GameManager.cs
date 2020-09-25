@@ -7,11 +7,9 @@ using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    //public GameObject prefabPlayer;
     private void Start()
     {
-       // Vector3 pos = Vector2.zero;
-       // PhotonNetwork.Instantiate(prefabPlayer.name, pos, Quaternion.identity);
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public override void OnLeftRoom()

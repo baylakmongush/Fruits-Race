@@ -3,6 +3,7 @@ using Photon.Pun.Demo.PunBasics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,15 +20,19 @@ public class PlayerController : MonoBehaviour
 	protected bool jumped = false;
 	protected float horiz;
 	protected Animator getAnimator;
+	int score;
+	Text scoreText;
 
 	void Start()
 	{
+		DontDestroyOnLoad(this);
 		getAnimator = GetComponent<Animator>();
-		//LoadAnim();
 		photonView = GetComponent<PhotonView>();
 		rigidBody = GetComponent<Rigidbody2D>();
 		boxCollider = GetComponent<PolygonCollider2D>();
 		CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
+		scoreText = GameObject.FindWithTag("Score").GetComponent<Text>();
+		score = PlayerPrefs.GetInt("score_temp");
 
 
 		if (_cameraWork != null)
@@ -43,21 +48,32 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-    protected void DetectedHit()
-	{
-		Vector3 min = boxCollider.bounds.min;
-		Vector3 max = boxCollider.bounds.max;
-		Vector2 pointA = new Vector2(max.x, min.y - 0.1f);
-		Vector2 pointB = new Vector2(min.x, min.y - 0.2f);
-		Collider2D hit = Physics2D.OverlapArea(pointA, pointB);
-		isGrounded = false;
-		if (hit != null && hit.gameObject.CompareTag("Ground"))
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+		if (collision.gameObject.CompareTag("Ground"))
 		{
 			isGrounded = true;
 		}
+
+		if (collision.gameObject.CompareTag("Heart"))
+		{
+			score++;
+			PlayerPrefs.SetInt("score_temp", score);
+			scoreText.text = "Счёт: " + score;
+		}
+
+		if (collision.gameObject.tag == "Enemy")
+			transform.position = Vector2.zero;
+
+		if (collision.gameObject.tag == "Teleport")
+		{
+			PhotonNetwork.LoadLevel("Level2");
+			transform.position = Vector2.zero;
+		}
+
 	}
 
-	bool SpaceEnter()
+    bool SpaceEnter()
     {
 		return ((Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.Space)));
     }
@@ -96,9 +112,10 @@ public class PlayerController : MonoBehaviour
 	}
 	void JumpPlayer()
 	{
-		DetectedHit();
+		//DetectedHit();
 		if (SpaceEnter() && isGrounded)
 		{
+			isGrounded = false;
 			rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 			jumped = true;
 			getAnimator.SetBool("walkRight", false);
@@ -116,7 +133,7 @@ public class PlayerController : MonoBehaviour
 	{
 		float deltaX;
 		horiz = Input.GetAxis("Horizontal");
-		deltaX = horiz * speed * Time.deltaTime;
+		deltaX = horiz * speed * Time.fixedDeltaTime;
 		velocity = new Vector2(deltaX, rigidBody.velocity.y);
 		rigidBody.velocity = velocity;
 		AnimationController();
