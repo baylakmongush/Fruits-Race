@@ -76,6 +76,9 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
     <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
     <Compile Include="Assets\Scripts\BonusDestroy.cs" />
+    <Compile Include="Assets\Scripts\ButtonQuiz.cs" />
+    <Compile Include="Assets\Scripts\ChangeSpriteColb.cs" />
+    <Compile Include="Assets\Scripts\CloseButtonQuiz.cs" />
     <Compile Include="Assets\Scripts\DestroyPlat.cs" />
     <Compile Include="Assets\Scripts\Game\CameraWork.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
@@ -85,12 +88,20 @@
     <Compile Include="Assets\Scripts\PlayFabManager.cs" />
     <Compile Include="Assets\Scripts\Quiz.cs" />
     <Compile Include="Assets\Scripts\SaveData.cs" />
+    <Compile Include="Assets\Scripts\Tasks.cs" />
     <Compile Include="Assets\Scripts\Virus.cs" />
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.xml" />
     <None Include="Assets\Photon\PhotonUnityNetworking\changelog.txt" />
+    <None Include="Assets\TextAsset\Test7.txt" />
+    <None Include="Assets\TextAsset\Test4.txt" />
+    <None Include="Assets\TextAsset\Test2.txt" />
+    <None Include="Assets\TextAsset\Test6.txt" />
     <None Include="Assets\Photon\PhotonLibs\changes-library.txt" />
+    <None Include="Assets\TextAsset\Test1.txt" />
     <None Include="Assets\Photon\PhotonUnityNetworking\readme.txt" />
+    <None Include="Assets\TextAsset\Test3.txt" />
     <None Include="Assets\Photon\PhotonLibs\Photon3Unity3D.xml" />
+    <None Include="Assets\TextAsset\Test5.txt" />
     <None Include="Assets\Photon\PhotonUnityNetworking\link.xml" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

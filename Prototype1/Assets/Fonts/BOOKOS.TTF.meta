@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: 3d08e0f2b1e4f7e40ae8eb9c71d3d25b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Bookman Old Style
+  fontNames:
+  - Bookman Old Style
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: fc399ad0c86be8543ad44318fffd36f6, type: 3}
+  - {fileID: 12800000, guid: eacfa2f1911d33d458ab19d194bc7989, type: 3}
+  - {fileID: 12800000, guid: 98360d585e61306449f886f69716acb6, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

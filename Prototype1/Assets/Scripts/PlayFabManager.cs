@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class PlayFabManager : MonoBehaviour
 {

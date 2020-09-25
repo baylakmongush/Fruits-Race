@@ -233,6 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 200
   jumpForce: 6
+  canvas: {fileID: 0}
 --- !u!61 &7451131701021039141
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -271,8 +272,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a037c750418724d8058d25ead50fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 7
-  height: 3
-  centerOffset: {x: 0, y: 0, z: 0}
   followOnStart: 0
-  smoothSpeed: 0.125

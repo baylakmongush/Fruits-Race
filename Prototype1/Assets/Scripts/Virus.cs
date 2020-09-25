@@ -6,15 +6,24 @@ using Photon.Pun;
 public class Virus :  MonoBehaviour
 {
     public Vector3 pointB;
-    Vector3 position;
+    Vector3 pointA;
+    PhotonView photonView;
 
+    [PunRPC]
     IEnumerator Start()
     {
-        var pointA = transform.position;
-        while (true)
+        photonView = GetComponent<PhotonView>();
+        if (photonView.IsMine)
         {
-            yield return StartCoroutine(MoveObject(transform, pointA, pointB, 3.0f));
-            yield return StartCoroutine(MoveObject(transform, pointB, pointA, 3.0f));
+            pointA = transform.position;
+            if (PhotonNetwork.CountOfPlayers == 2)
+            {
+                while (true)
+                {
+                    yield return StartCoroutine(MoveObject(transform, pointA, pointB, 3.0f));
+                    yield return StartCoroutine(MoveObject(transform, pointB, pointA, 3.0f));
+                }
+            }
         }
     }
 
@@ -26,22 +35,23 @@ public class Virus :  MonoBehaviour
         {
             i += Time.deltaTime * rate;
             thisTransform.position = Vector3.Lerp(startPos, endPos, i);
-            position = thisTransform.position;
             yield return null;
         }
     }
 
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        //this is where i tried to fix it with OnPhotonSerializeView but it doesn't work
         if (stream.IsWriting)
         {
-            stream.SendNext(position);
+            stream.SendNext(pointA);
+            stream.SendNext(pointB);
+            stream.SendNext(transform.position);
         }
         else
         {
-            position = (Vector3)stream.ReceiveNext();
-
+            pointA = (Vector3)stream.ReceiveNext();
+            pointB = (Vector3)stream.ReceiveNext();
+            transform.position = (Vector3)stream.ReceiveNext();
         }
     }
 }

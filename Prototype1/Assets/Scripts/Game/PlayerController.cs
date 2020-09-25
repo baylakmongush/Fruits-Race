@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 	protected Animator getAnimator;
 	int score;
 	Text scoreText;
+public Canvas canvas;
 
 	void Start()
 	{
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour
 		CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
 		scoreText = GameObject.FindWithTag("Score").GetComponent<Text>();
 		score = PlayerPrefs.GetInt("score_temp");
-
+		canvas = GameObject.FindWithTag("QuizCanvas").GetComponent<Canvas>();
 
 		if (_cameraWork != null)
 		{
@@ -71,6 +72,11 @@ public class PlayerController : MonoBehaviour
 			transform.position = Vector2.zero;
 		}
 
+		if (collision.gameObject.tag == "Quiz" && photonView.IsMine)
+		{
+			canvas.enabled = true;
+			collision.gameObject.SetActive(false);
+		}
 	}
 
     bool SpaceEnter()
@@ -158,8 +164,14 @@ public class PlayerController : MonoBehaviour
 
 		if (!valuesReceived)
 		{
-			WalkPlayer();
-			JumpPlayer();
+			if (canvas)
+			{
+				if (canvas.enabled == false)
+				{
+					WalkPlayer();
+					JumpPlayer();
+				}
+			}
 		}
 	}
 }

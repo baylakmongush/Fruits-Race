@@ -2,6 +2,9 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - BonusDestroy
+    - ButtonQuiz
+    - ChangeSpriteColb
+    - CloseButtonQuiz
     - DestroyPlat
     - GameManager
     - NetworkManager
@@ -10,6 +13,7 @@ ScriptsOnlyBuild:
     - PlayerController
     - Quiz
     - SelectManager
+    - Tasks
     - Virus
     PhotonUnityNetworking.Demos.dll:
     - Photon.Pun.Demo.Asteroids.Asteroid
@@ -105,6 +109,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.InputField
     - UnityEngine.UI.LayoutElement
     - UnityEngine.UI.Mask
+    - UnityEngine.UI.Outline
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Shadow
@@ -125,6 +130,8 @@ ScriptsOnlyBuild:
     - Class: 28
       Script: {instanceID: 0}
     - Class: 48
+      Script: {instanceID: 0}
+    - Class: 49
       Script: {instanceID: 0}
     - Class: 50
       Script: {instanceID: 0}
@@ -150,6 +157,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 11414}
     - Class: 114
       Script: {instanceID: 11416}
+    - Class: 114
+      Script: {instanceID: 11420}
     - Class: 114
       Script: {instanceID: 11424}
     - Class: 114
@@ -177,6 +186,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 16784}
     - Class: 114
+      Script: {instanceID: 16804}
+    - Class: 114
       Script: {instanceID: 16986}
     - Class: 114
       Script: {instanceID: 252776}
@@ -185,7 +196,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 378582}
     - Class: 114
-      Script: {instanceID: 452016}
+      Script: {instanceID: 500764}
+    - Class: 114
+      Script: {instanceID: 610512}
+    - Class: 114
+      Script: {instanceID: 614588}
+    - Class: 114
+      Script: {instanceID: 672852}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1351,7 +1368,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: ec66b752723114f54fb66b5017cb0edb
+      Hash: 9a927f2605f360f3bb4446bcacfbfb06
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -2363,9 +2380,33 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Quiz
+  - hash:
+      serializedVersion: 2
+      Hash: 036ccbe50cac4f9e7f620b60f5fd9914
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ChangeSpriteColb
+  - hash:
+      serializedVersion: 2
+      Hash: 4c565905eda5f8c0d2c87b753d2cd20b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Tasks
+  - hash:
+      serializedVersion: 2
+      Hash: 833f9d4320c5b8f129442e373d3e7c52
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ButtonQuiz
+  - hash:
+      serializedVersion: 2
+      Hash: e9539b36af987b1fc4d5169f5d2f3d29
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CloseButtonQuiz
   platform: 19
   scenePathNames:
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/Game.unity
   - Assets/Scenes/Level2.unity
-  playerPath: D:/Projects/Fruits race Test/test13/Fruits race.exe
+  playerPath: D:/Projects/Fruits race Test/test20/Fruits race.exe
