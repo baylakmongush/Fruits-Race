@@ -19,8 +19,8 @@ public class ButtonQuiz : MonoBehaviour
         Debug.Log(text.text);
         string str1 = text.text.Trim();
         string str2 = tasks.TrueAns.Trim();
-        if (GetComponent<PhotonView>().IsMine)
-        {
+       // if (GetComponent<PhotonView>().IsMine)
+       // {
             if (str1 == str2)
             {
                 ImageButton.color = Color.green;
@@ -32,6 +32,6 @@ public class ButtonQuiz : MonoBehaviour
             }
             else
                 ImageButton.color = Color.red;
-        }
+      //  }
     }
 }

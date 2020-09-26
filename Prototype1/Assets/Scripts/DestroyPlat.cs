@@ -5,11 +5,6 @@ using Photon.Pun;
 
 public class DestroyPlat : MonoBehaviour
 {
-    private void Start()
-    {
-        DontDestroyOnLoad(this);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "MainCharacter")

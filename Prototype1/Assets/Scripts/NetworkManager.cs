@@ -18,7 +18,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Log("Player's name is set to " + PhotonNetwork.NickName);
         PhotonNetwork.GameVersion = "1";
         PhotonNetwork.ConnectUsingSettings();
-        UserName.text = "HELLO, + " + PlayerPrefs.GetString("login") + "!";
+        if (UserName)
+            UserName.text = "HELLO, + " + PlayerPrefs.GetString("login") + "!";
     }
 
     public override void OnConnectedToMaster()

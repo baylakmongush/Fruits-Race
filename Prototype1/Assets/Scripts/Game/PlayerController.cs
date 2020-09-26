@@ -3,6 +3,7 @@ using Photon.Pun.Demo.PunBasics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -22,11 +23,9 @@ public class PlayerController : MonoBehaviour
 	protected Animator getAnimator;
 	int score;
 	Text scoreText;
-public Canvas canvas;
-
+	Canvas canvas;
 	void Start()
 	{
-		DontDestroyOnLoad(this);
 		getAnimator = GetComponent<Animator>();
 		photonView = GetComponent<PhotonView>();
 		rigidBody = GetComponent<Rigidbody2D>();
@@ -35,6 +34,7 @@ public Canvas canvas;
 		scoreText = GameObject.FindWithTag("Score").GetComponent<Text>();
 		score = PlayerPrefs.GetInt("score_temp");
 		canvas = GameObject.FindWithTag("QuizCanvas").GetComponent<Canvas>();
+		canvas.enabled = false;
 
 		if (_cameraWork != null)
 		{
@@ -49,8 +49,8 @@ public Canvas canvas;
 		}
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
 		if (collision.gameObject.CompareTag("Ground"))
 		{
 			isGrounded = true;
@@ -64,21 +64,30 @@ public Canvas canvas;
 		}
 
 		if (collision.gameObject.tag == "Enemy")
-			transform.position = Vector2.zero;
+			transform.position = new Vector2(2, transform.position.y);
 
-		if (collision.gameObject.tag == "Teleport")
+		if (collision.gameObject.tag == "Teleport" && photonView.IsMine)
 		{
-			PhotonNetwork.LoadLevel("Level2");
-			transform.position = Vector2.zero;
+			if (GetComponent<PhotonView>().InstantiationId == 0)
+			{
+				Destroy(gameObject);
+			}
+			else
+			{
+				if (GetComponent<PhotonView>().IsMine)
+				{
+					PhotonNetwork.Destroy(gameObject);
+				}
+			}
+			PhotonNetwork.LoadLevel(2);
 		}
 
 		if (collision.gameObject.tag == "Quiz" && photonView.IsMine)
 		{
 			canvas.enabled = true;
-			collision.gameObject.SetActive(false);
+			Destroy(collision.gameObject);
 		}
 	}
-
     bool SpaceEnter()
     {
 		return ((Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.Space)));
@@ -166,7 +175,8 @@ public Canvas canvas;
 		{
 			if (canvas)
 			{
-				if (canvas.enabled == false)
+				if (canvas.enabled == false &&
+		(PhotonNetwork.CurrentRoom.PlayerCount == 2 || GameObject.FindGameObjectsWithTag("MainCharacter").Length == 2))
 				{
 					WalkPlayer();
 					JumpPlayer();

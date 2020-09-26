@@ -65,31 +65,46 @@ public class SelectManager : MonoBehaviour
 
     public void Select()
     {
-        Debug.Log(current);
-        switch (current)
-        {
-            case 0:
+
+            Debug.Log(current);
+            switch (current)
             {
-                    Vector3 pos = Vector2.zero;
-                    PhotonNetwork.Instantiate(prefabPlayer[0].name, pos, Quaternion.identity);
+                case 0:
+                    {
+                        Vector3 pos = Vector2.zero;
+                        PhotonNetwork.Instantiate(prefabPlayer[0].name, pos, Quaternion.identity);
+                        if (PhotonNetwork.IsMasterClient)
+                            PlayerPrefs.SetInt("NumberCharMaster", 0);
+                        else
+                            PlayerPrefs.SetInt("NumberCharClient", 0);
+                    break;
+                    }
+                case 1:
+                    {
+                        Vector3 pos = Vector2.zero;
+                        PhotonNetwork.Instantiate(prefabPlayer[1].name, pos, Quaternion.identity);
+                        if (PhotonNetwork.IsMasterClient)
+                            PlayerPrefs.SetInt("NumberCharMaster", 1);
+                        else
+                            PlayerPrefs.SetInt("NumberCharClient", 1);
+                    break;
+                    }
+                case 2:
+                    {
+                        Vector3 pos = Vector2.zero;
+                        PhotonNetwork.Instantiate(prefabPlayer[2].name, pos, Quaternion.identity);
+                        if (PhotonNetwork.IsMasterClient)
+                            PlayerPrefs.SetInt("NumberCharMaster", 2);
+                        else
+                            PlayerPrefs.SetInt("NumberCharClient", 2);
+                    break;
+                    }
+                default:
                     break;
             }
-            case 1:
-            {
-                    Vector3 pos = Vector2.zero;
-                    PhotonNetwork.Instantiate(prefabPlayer[1].name, pos, Quaternion.identity);
-                    break;
-            }
-            case 2:
-            {       Vector3 pos = Vector2.zero;
-                    PhotonNetwork.Instantiate(prefabPlayer[2].name, pos, Quaternion.identity);
-                    break;
-            }
-            default:
-                break;
-        }
-        canvasSelect.enabled = false;
-        Destroy(this.gameObject);
-        Destroy(imageChar);
+            canvasSelect.enabled = false;
+            Destroy(canvasSelect.gameObject);
+            Destroy(this.gameObject);
+            Destroy(imageChar);
     }
 }
