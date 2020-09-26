@@ -21,6 +21,7 @@ TagManager:
   - Quiz
   - QuizCanvas
   - QuitQuiz
+  - finish
   layers:
   - Default
   - TransparentFX

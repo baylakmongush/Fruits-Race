@@ -40,7 +40,6 @@ public class PlayFabManager : MonoBehaviour
             PlayerPrefs.SetString("login", loginReq.Username);
             usernameText.text = "Привет, " + loginReq.Username + "!";
             SetStats();
-            //     PlayerPrefs.SetInt("score", loginReq.Username);
             GetLeaderBoard();
             auth.gameObject.SetActive(false);
             lobby.enabled = true;
@@ -98,7 +97,7 @@ public class PlayFabManager : MonoBehaviour
     int GetHighScore()
     {
         int resultScore;
-        resultScore = Math.Max(PlayerPrefs.GetInt("score_temp"), PlayerPrefs.GetInt("Score"));
+        resultScore = Math.Max(PlayerPrefs.GetInt("Score"), PlayerPrefs.GetInt("LastScore"));
         return resultScore;
     }
 
@@ -116,6 +115,7 @@ public class PlayFabManager : MonoBehaviour
             {
                 rank.text = i.ToString();
                 score.text = player.StatValue.ToString();
+                PlayerPrefs.SetInt("LastScore", player.StatValue);
             }
             i++;
         }

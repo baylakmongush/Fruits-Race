@@ -12,24 +12,56 @@ public class Tasks : MonoBehaviour
     public string TrueAns;
     public Text taskText;
     public List<Text> answers;
+    List<Text> tmp;
     string task;
+    public Canvas thisCan;
+    public Slider timer;
+    public float timeRemaning = 10f;
+    public bool ischecked = true;
+    public Canvas canvasQuitQuiz;
+    public bool taskChange = true;
+    
 
-    private void Start()
+    private void FixedUpdate()
     {
-        int randomNumber = Random.Range(0, 6);
-        task = tasks[randomNumber].text;
-        GetAllInf = task.Split('/');
-        Task = GetAllInf[0];
-        taskText.text = Task;
-        TrueAns = GetAllInf[2];
-        Ans = GetAllInf[1].Split(';');
-        int i = 0;
-        while (i < 4)
+        tmp = answers;
+        if (taskChange)
         {
-            int index = Random.Range(0, answers.Count);
-            answers[index].text = Ans[i];
-            answers.RemoveAt(index);
-            i++;
+            taskChange = false;
+            int randomNumber = Random.Range(0, 6);
+            task = tasks[randomNumber].text;
+            GetAllInf = task.Split('/');
+            Task = GetAllInf[0];
+            taskText.text = Task;
+            TrueAns = GetAllInf[2];
+            Ans = GetAllInf[1].Split(';');
+            int i = 0;
+            int index = 1;
+            while (i < 4)
+            {
+                if (tmp.Count > 0)
+                {
+                    index = Random.Range(0, tmp.Count);
+                    tmp[index].text = Ans[i];
+                    tmp.RemoveAt(index);
+                }
+                i++;
+            }
+        }
+
+
+        if (thisCan.enabled == true)
+        {
+            if (timeRemaning > 0 && ischecked)
+            {
+                timeRemaning -= Time.deltaTime;
+                timer.value = timeRemaning;
+            }
+            else if (timeRemaning <= 0)
+            {
+                timeRemaning = 0;
+                canvasQuitQuiz.enabled = true;
+            }
         }
     }
 }

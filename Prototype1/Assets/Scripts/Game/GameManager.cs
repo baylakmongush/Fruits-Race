@@ -13,17 +13,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
-    public override void OnLeftRoom()
-    {
-        base.OnLeftRoom();
-        SceneManager.LoadScene(0);
-    }
-
-    public void Leave()
-    {
-        PhotonNetwork.LeaveRoom();
-    }
-
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.LogFormat("Player {0} entered the room", newPlayer.NickName);

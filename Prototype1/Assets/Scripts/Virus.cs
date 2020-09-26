@@ -16,13 +16,10 @@ public class Virus :  MonoBehaviour
         if (photonView.IsMine)
         {
             pointA = transform.position;
-            if (PhotonNetwork.CountOfPlayers == 2)
+            while (true)
             {
-                while (true)
-                {
-                    yield return StartCoroutine(MoveObject(transform, pointA, pointB, 3.0f));
-                    yield return StartCoroutine(MoveObject(transform, pointB, pointA, 3.0f));
-                }
+                yield return StartCoroutine(MoveObject(transform, pointA, pointB, 3.0f));
+                yield return StartCoroutine(MoveObject(transform, pointB, pointA, 3.0f));
             }
         }
     }

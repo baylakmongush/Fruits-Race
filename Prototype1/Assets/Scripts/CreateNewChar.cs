@@ -1,19 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 
 public class CreateNewChar : MonoBehaviour
 {
 
     public GameObject[] prefabPlayer;
+    public Text score;
+    public Text answ;
     void Start()
     {
-        PhotonNetwork.AutomaticallySyncScene = false;
-        Vector3 pos = Vector2.zero;
-        if (PhotonNetwork.IsMasterClient)
-             PhotonNetwork.Instantiate(prefabPlayer[PlayerPrefs.GetInt("NumberCharMaster")].name, pos, Quaternion.identity);
-         else
-             PhotonNetwork.Instantiate(prefabPlayer[PlayerPrefs.GetInt("NumberCharClient")].name, pos, Quaternion.identity);
+       PhotonNetwork.AutomaticallySyncScene = true;
+        if (GetComponent<PhotonView>().IsMine)
+        {
+            Vector3 pos = Vector2.zero;
+            answ.text = "Правильные ответы: " + PlayerPrefs.GetInt("true_answer");
+            score.text = "Счёт: " + PlayerPrefs.GetInt("score_temp");
+            PhotonNetwork.Instantiate(prefabPlayer[PlayerPrefs.GetInt("NumberCharClient")].name, pos, Quaternion.identity);
+        }
     }
 }

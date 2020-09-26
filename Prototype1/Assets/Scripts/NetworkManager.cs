@@ -32,8 +32,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         if (roomNameCreate.text != "")
             PhotonNetwork.CreateRoom(roomName: roomNameCreate.text, new Photon.Realtime.RoomOptions { MaxPlayers = 2 });
-        PlayerPrefs.SetInt("score_temp", 0);
-        PlayerPrefs.SetInt("true_answer", 0);
+        PlayerPrefs.SetInt("score_temp1", 0);
+        PlayerPrefs.SetInt("true_answer1", 0);
     }
     public void CreateRandomRoom()
     {
@@ -47,8 +47,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (roomNameJoin.text != "")
             PhotonNetwork.JoinRoom(roomName: roomNameJoin.text);
         PlayerPrefs.SetInt("score_temp", 0);
-        PlayerPrefs.SetInt("true_answer", 0);
-    }
+        PlayerPrefs.SetInt("true_answer", 0);    }
 
     public void JoinRandomRoom()
     {

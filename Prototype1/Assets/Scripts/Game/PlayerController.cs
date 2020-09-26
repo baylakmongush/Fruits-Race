@@ -58,15 +58,15 @@ public class PlayerController : MonoBehaviour
 
 		if (collision.gameObject.CompareTag("Heart"))
 		{
-			score++;
-			PlayerPrefs.SetInt("score_temp", score);
+			PlayerPrefs.SetInt("score_temp", PlayerPrefs.GetInt("score_temp") + 1);
+			score = PlayerPrefs.GetInt("score_temp");
 			scoreText.text = "Счёт: " + score;
 		}
 
 		if (collision.gameObject.tag == "Enemy")
 			transform.position = new Vector2(2, transform.position.y);
 
-		if (collision.gameObject.tag == "Teleport" && photonView.IsMine)
+		if (collision.gameObject.tag == "Teleport")
 		{
 			if (GetComponent<PhotonView>().InstantiationId == 0)
 			{
@@ -77,9 +77,9 @@ public class PlayerController : MonoBehaviour
 				if (GetComponent<PhotonView>().IsMine)
 				{
 					PhotonNetwork.Destroy(gameObject);
+					PhotonNetwork.LoadLevel(2);
 				}
 			}
-			PhotonNetwork.LoadLevel(2);
 		}
 
 		if (collision.gameObject.tag == "Quiz" && photonView.IsMine)
@@ -175,8 +175,7 @@ public class PlayerController : MonoBehaviour
 		{
 			if (canvas)
 			{
-				if (canvas.enabled == false &&
-		(PhotonNetwork.CurrentRoom.PlayerCount == 2 || GameObject.FindGameObjectsWithTag("MainCharacter").Length == 2))
+				if (canvas.enabled == false)// && (PhotonNetwork.CurrentRoom.PlayerCount == 2 || GameObject.FindGameObjectsWithTag("MainCharacter").Length == 2))
 				{
 					WalkPlayer();
 					JumpPlayer();

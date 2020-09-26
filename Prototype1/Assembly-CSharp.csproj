@@ -81,10 +81,12 @@
     <Compile Include="Assets\Scripts\CloseButtonQuiz.cs" />
     <Compile Include="Assets\Scripts\CreateNewChar.cs" />
     <Compile Include="Assets\Scripts\DestroyPlat.cs" />
+    <Compile Include="Assets\Scripts\Finish.cs" />
     <Compile Include="Assets\Scripts\Game\CameraWork.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
     <Compile Include="Assets\Scripts\Game\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Game\SelectManager.cs" />
+    <Compile Include="Assets\Scripts\Leave.cs" />
     <Compile Include="Assets\Scripts\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\PlayFabManager.cs" />
     <Compile Include="Assets\Scripts\Quiz.cs" />
