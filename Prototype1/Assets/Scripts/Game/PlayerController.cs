@@ -25,16 +25,20 @@ public class PlayerController : MonoBehaviour
 	Text scoreText;
 	Canvas canvas;
 	private bool isGrounded = false;
+	ExitGames.Client.Photon.Hashtable props;
+	public static bool isTrue = false;
+	int score;
 	void Start()
 	{
+		props = new ExitGames.Client.Photon.Hashtable();
+		props.Add("score", 0);
+		PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 		getAnimator = GetComponent<Animator>();
 		photonView = GetComponent<PhotonView>();
 		rigidBody = GetComponent<Rigidbody2D>();
 		myCollider = GetComponent<BoxCollider2D>();
 		CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
 		scoreText = GameObject.FindWithTag("Score").GetComponent<Text>();
-		PhotonNetwork.LocalPlayer.SetScore(0);
-		UpdateText();
 		canvas = GameObject.FindWithTag("QuizCanvas").GetComponent<Canvas>();
 		canvas.enabled = false;
 
@@ -51,26 +55,54 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	[PunRPC]
-	void AddPoints()
+	/*	[PunRPC]
+		void AddPoints()
+		{
+			PhotonNetwork.LocalPlayer.AddScore(1);
+			UpdateText();
+		}
+
+		void UpdateText()
+		{
+			scoreText.text = "Счёт: " + PhotonNetwork.LocalPlayer.GetScore().ToString();
+		}
+	*/
+
+	void SendScore(int scoreReceived)
     {
-		PhotonNetwork.LocalPlayer.AddScore(1);
+		score += scoreReceived;
+		scoreText.text = "Счёт: " + score.ToString();
+		SetCustomProperties(score);
+    }
+
+	void SetCustomProperties(int score)
+    {
+		props["score"] = score;
+		PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+	}
+/*	[PunRPC]
+	void AddPoints()
+	{
+		PhotonNetwork.LocalPlayer.CustomProperties["score"] = (int)PhotonNetwork.LocalPlayer.CustomProperties["score"] + 1;
+		//PhotonNetwork.LocalPlayer.AddScore(2);
 		Debug.Log("added + 1");
 		UpdateText();
 	}
 
 	void UpdateText()
-    {
-		scoreText.text = "Счёт: " + PhotonNetwork.LocalPlayer.GetScore().ToString();
+	{
+		//scoreText.text = "Счёт: " + PhotonNetwork.LocalPlayer.GetScore().ToString();
+		scoreText.text = "Счёт: " + PhotonNetwork.LocalPlayer.CustomProperties["score"].ToString();
 	}
-
+*/
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.gameObject.CompareTag("Ground"))
 			isGrounded = true;
 		if (collision.gameObject.CompareTag("Heart"))
 		{
-			photonView.RPC("AddPoints", RpcTarget.AllBuffered);
+			//photonView.RPC("AddPoints", RpcTarget.AllBuffered);
+			SendScore(1);
 		}
 
 		if (collision.gameObject.tag == "Enemy")
@@ -94,6 +126,11 @@ public class PlayerController : MonoBehaviour
 
 		if (collision.gameObject.tag == "Quiz" && photonView.IsMine)
 		{
+			if (isTrue)
+			{
+				SendScore(2);
+				isTrue = false;
+			}
 			canvas.enabled = true;
 			Destroy(collision.gameObject);
 		}

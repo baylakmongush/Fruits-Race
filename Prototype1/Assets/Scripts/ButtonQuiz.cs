@@ -28,14 +28,16 @@ public class ButtonQuiz : MonoBehaviour
     [PunRPC]
     void AddPoints()
     {
-        PhotonNetwork.LocalPlayer.AddScore(2);
+        PhotonNetwork.LocalPlayer.CustomProperties["score"] = (int)PhotonNetwork.LocalPlayer.CustomProperties["score"] + 2;
+        //PhotonNetwork.LocalPlayer.AddScore(2);
         Debug.Log("added + 2");
         UpdateText();
     }
 
     void UpdateText()
     {
-        scoreText.text = "Счёт: " + PhotonNetwork.LocalPlayer.GetScore().ToString();
+        //scoreText.text = "Счёт: " + PhotonNetwork.LocalPlayer.GetScore().ToString();
+        scoreText.text = "Счёт: " + PhotonNetwork.LocalPlayer.CustomProperties["score"].ToString();
     }
 
     public void Check()
@@ -47,8 +49,9 @@ public class ButtonQuiz : MonoBehaviour
             if (str1 == str2)
             {
                 ImageButton.color = Color.green;
-            photonView.RPC("AddPoints", RpcTarget.AllBuffered);
-            PlayerPrefs.SetInt("true_answer", PlayerPrefs.GetInt("true_answer") + 1);
+                PlayerController.isTrue = true;
+           // photonView.RPC("AddPoints", RpcTarget.AllBuffered);
+                PlayerPrefs.SetInt("true_answer", PlayerPrefs.GetInt("true_answer") + 1);
                 answCount.text = "Правильные ответы: " + PlayerPrefs.GetInt("true_answer");
             }
             else
