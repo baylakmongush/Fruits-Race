@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 
 public class CreateNewChar : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class CreateNewChar : MonoBehaviour
         {
             Vector3 pos = Vector2.zero;
             answ.text = "Правильные ответы: " + PlayerPrefs.GetInt("true_answer");
-            score.text = "Счёт: " + PlayerPrefs.GetInt("score_temp");
+            score.text = "Счёт: " + PhotonNetwork.LocalPlayer.GetScore().ToString();
             PhotonNetwork.Instantiate(prefabPlayer[PlayerPrefs.GetInt("NumberCharClient")].name, pos, Quaternion.identity);
         }
     }

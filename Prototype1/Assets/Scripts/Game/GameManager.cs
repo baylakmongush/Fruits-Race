@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using Photon.Realtime;
 using System.Linq;
+using Photon.Pun.UtilityScripts;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -12,7 +14,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.AutomaticallySyncScene = true;
     }
-
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.LogFormat("Player {0} entered the room", newPlayer.NickName);

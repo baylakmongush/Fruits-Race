@@ -55,6 +55,11 @@ namespace Photon.Pun
 
         protected internal bool mixedModeIsReliable = false;
 
+        public void RPC(string v, object allBuffered)
+        {
+            throw new NotImplementedException();
+        }
+
         // NOTE: this is now an integer because unity won't serialize short (needed for instantiation). we SEND only a short though!
         // NOTE: prefabs have a prefixField of -1. this is replaced with any currentLevelPrefix that's used at runtime. instantiated GOs get their prefix set pre-instantiation (so those are not -1 anymore)
         public int Prefix

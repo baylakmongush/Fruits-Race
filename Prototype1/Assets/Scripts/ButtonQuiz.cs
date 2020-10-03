@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using Photon.Realtime;
+using Photon.Pun.UtilityScripts;
 
 public class ButtonQuiz : MonoBehaviour
 {
@@ -15,6 +17,26 @@ public class ButtonQuiz : MonoBehaviour
     public Canvas canvasQuitQuiz;
     public Tasks value;
     public Button[] btns;
+    PhotonView photonView;
+
+
+    private void Start()
+    {
+        photonView = GetComponent<PhotonView>();
+    }
+
+    [PunRPC]
+    void AddPoints()
+    {
+        PhotonNetwork.LocalPlayer.AddScore(2);
+        Debug.Log("added + 2");
+        UpdateText();
+    }
+
+    void UpdateText()
+    {
+        scoreText.text = "Счёт: " + PhotonNetwork.LocalPlayer.GetScore().ToString();
+    }
 
     public void Check()
     {
@@ -25,11 +47,9 @@ public class ButtonQuiz : MonoBehaviour
             if (str1 == str2)
             {
                 ImageButton.color = Color.green;
-                PlayerPrefs.SetInt("score_temp", PlayerPrefs.GetInt("score_temp") + 2);
-                score = PlayerPrefs.GetInt("score_temp");
-                PlayerPrefs.SetInt("true_answer", PlayerPrefs.GetInt("true_answer") + 1);
+            photonView.RPC("AddPoints", RpcTarget.AllBuffered);
+            PlayerPrefs.SetInt("true_answer", PlayerPrefs.GetInt("true_answer") + 1);
                 answCount.text = "Правильные ответы: " + PlayerPrefs.GetInt("true_answer");
-                scoreText.text = "Счёт: " + score;
             }
             else
                 ImageButton.color = Color.red;

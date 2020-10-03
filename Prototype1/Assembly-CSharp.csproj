@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Game\SelectManager.cs" />
     <Compile Include="Assets\Scripts\Leave.cs" />
     <Compile Include="Assets\Scripts\NetworkManager.cs" />
+    <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\PlayFabManager.cs" />
     <Compile Include="Assets\Scripts\Quiz.cs" />
     <Compile Include="Assets\Scripts\Tasks.cs" />

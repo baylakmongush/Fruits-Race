@@ -1,5 +1,7 @@
 ﻿using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
+using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,28 +13,28 @@ public class PlayerController : MonoBehaviour
 	[SerializeField]
 	private float speed = 250.0f;
 	[SerializeField]
-	private float jumpForce = 5.0f;
+	private float jumpForce = 1.0f;
 	PhotonView photonView;
 	Rigidbody2D rigidBody;
-	protected PolygonCollider2D boxCollider;
+	protected BoxCollider2D myCollider;
 	protected Vector2 velocity;
 	protected bool valuesReceived = false;
-	protected bool isGrounded = false;
 	protected bool jumped = false;
 	protected float horiz;
 	protected Animator getAnimator;
-	int score;
 	Text scoreText;
 	Canvas canvas;
+	private bool isGrounded = false;
 	void Start()
 	{
 		getAnimator = GetComponent<Animator>();
 		photonView = GetComponent<PhotonView>();
 		rigidBody = GetComponent<Rigidbody2D>();
-		boxCollider = GetComponent<PolygonCollider2D>();
+		myCollider = GetComponent<BoxCollider2D>();
 		CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
 		scoreText = GameObject.FindWithTag("Score").GetComponent<Text>();
-		score = PlayerPrefs.GetInt("score_temp");
+		PhotonNetwork.LocalPlayer.SetScore(0);
+		UpdateText();
 		canvas = GameObject.FindWithTag("QuizCanvas").GetComponent<Canvas>();
 		canvas.enabled = false;
 
@@ -49,18 +51,26 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	[PunRPC]
+	void AddPoints()
+    {
+		PhotonNetwork.LocalPlayer.AddScore(1);
+		Debug.Log("added + 1");
+		UpdateText();
+	}
+
+	void UpdateText()
+    {
+		scoreText.text = "Счёт: " + PhotonNetwork.LocalPlayer.GetScore().ToString();
+	}
+
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.gameObject.CompareTag("Ground"))
-		{
 			isGrounded = true;
-		}
-
 		if (collision.gameObject.CompareTag("Heart"))
 		{
-			PlayerPrefs.SetInt("score_temp", PlayerPrefs.GetInt("score_temp") + 1);
-			score = PlayerPrefs.GetInt("score_temp");
-			scoreText.text = "Счёт: " + score;
+			photonView.RPC("AddPoints", RpcTarget.AllBuffered);
 		}
 
 		if (collision.gameObject.tag == "Enemy")
@@ -91,6 +101,19 @@ public class PlayerController : MonoBehaviour
     bool SpaceEnter()
     {
 		return ((Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.Space)));
+    }
+
+	void FindHit()
+    {
+		Vector3 max = myCollider.bounds.max;
+		Vector3 min = myCollider.bounds.min;
+		Vector2 corner1 = new Vector2(max.x, min.y - .1f);
+		Vector2 corner2 = new Vector2(min.x, min.y - .2f);
+		Collider2D hit = Physics2D.OverlapArea(corner1, corner2);
+
+		isGrounded = false;
+		if (hit != null)
+			isGrounded = true;
     }
 
 	void AnimationController()
@@ -130,7 +153,7 @@ public class PlayerController : MonoBehaviour
 		//DetectedHit();
 		if (SpaceEnter() && isGrounded)
 		{
-			isGrounded = false;
+			rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0f);
 			rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 			jumped = true;
 			getAnimator.SetBool("walkRight", false);
@@ -177,6 +200,7 @@ public class PlayerController : MonoBehaviour
 			{
 				if (canvas.enabled == false)// && (PhotonNetwork.CurrentRoom.PlayerCount == 2 || GameObject.FindGameObjectsWithTag("MainCharacter").Length == 2))
 				{
+					FindHit();
 					WalkPlayer();
 					JumpPlayer();
 				}

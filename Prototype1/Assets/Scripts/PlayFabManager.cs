@@ -21,10 +21,11 @@ public class PlayFabManager : MonoBehaviour
     public Text usernameText;
     public Text rank;
     public Text score;
+    public Text log;
+    public Button avtorize;
     
     void Start()
     {
-        email.gameObject.SetActive(false);
     }
 
     #region Autorization
@@ -45,8 +46,9 @@ public class PlayFabManager : MonoBehaviour
             lobby.enabled = true;
         }, error => {
             isAuth = false;
-            Debug.Log(error.ErrorMessage);
+            log.text = error.ErrorMessage;
             email.gameObject.SetActive(true);
+            log.text = error.GenerateErrorReport();
         }, null);
     }
 
@@ -58,7 +60,7 @@ public class PlayFabManager : MonoBehaviour
 
     void OnLoginFailure(PlayFabError error)
     {
-        Debug.LogError(error.GenerateErrorReport());
+        log.text = error.GenerateErrorReport();
     }
 
     public void Register()
@@ -68,9 +70,9 @@ public class PlayFabManager : MonoBehaviour
         request.Username = username.text;
         request.Password = password.text;
         PlayFabClientAPI.RegisterPlayFabUser(request, result => {
-            Debug.Log("Welcome");
+             log.text =  "Вы зарегистрированы! Нажмите на кнопку авторизации";
         }, error => {
-            Debug.Log("Please enter your email");
+            log.text = "пароль - от 6 символов и введите EMAIL";
         });
     }
     #endregion Authorization
