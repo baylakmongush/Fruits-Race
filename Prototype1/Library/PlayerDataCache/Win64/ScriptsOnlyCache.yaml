@@ -5,7 +5,6 @@ ScriptsOnlyBuild:
     - ButtonQuiz
     - ChangeSpriteColb
     - CloseButtonQuiz
-    - CreateNewChar
     - DestroyPlat
     - Finish
     - GameManager
@@ -198,115 +197,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 15400}
     - Class: 114
       Script: {instanceID: 15416}
-    - Class: 114
-      Script: {instanceID: 16080}
-    - Class: 114
-      Script: {instanceID: 16202}
-    - Class: 114
-      Script: {instanceID: 16814}
-    - Class: 114
-      Script: {instanceID: 16834}
-    - Class: 114
-      Script: {instanceID: 17016}
-    - Class: 115
-      Script: {instanceID: 0}
-    - Class: 128
-      Script: {instanceID: 0}
-    - Class: 157
-      Script: {instanceID: 0}
-    - Class: 196
-      Script: {instanceID: 0}
-    - Class: 212
-      Script: {instanceID: 0}
-    - Class: 213
-      Script: {instanceID: 0}
-    - Class: 222
-      Script: {instanceID: 0}
-    - Class: 223
-      Script: {instanceID: 0}
-    - Class: 224
-      Script: {instanceID: 0}
-    - Class: 251
-      Script: {instanceID: 0}
-    Assets/Scenes/Level2.unity:
-    - Class: 1
-      Script: {instanceID: 0}
-    - Class: 4
-      Script: {instanceID: 0}
-    - Class: 20
-      Script: {instanceID: 0}
-    - Class: 21
-      Script: {instanceID: 0}
-    - Class: 28
-      Script: {instanceID: 0}
-    - Class: 48
-      Script: {instanceID: 0}
-    - Class: 49
-      Script: {instanceID: 0}
-    - Class: 50
-      Script: {instanceID: 0}
-    - Class: 58
-      Script: {instanceID: 0}
-    - Class: 60
-      Script: {instanceID: 0}
-    - Class: 61
-      Script: {instanceID: 0}
-    - Class: 62
-      Script: {instanceID: 0}
-    - Class: 68
-      Script: {instanceID: 0}
-    - Class: 74
-      Script: {instanceID: 0}
-    - Class: 81
-      Script: {instanceID: 0}
-    - Class: 91
-      Script: {instanceID: 0}
-    - Class: 95
-      Script: {instanceID: 0}
-    - Class: 104
-      Script: {instanceID: 0}
-    - Class: 114
-      Script: {instanceID: 11422}
-    - Class: 114
-      Script: {instanceID: 11424}
-    - Class: 114
-      Script: {instanceID: 11428}
-    - Class: 114
-      Script: {instanceID: 11430}
-    - Class: 114
-      Script: {instanceID: 11432}
-    - Class: 114
-      Script: {instanceID: 11438}
-    - Class: 114
-      Script: {instanceID: 11642}
-    - Class: 114
-      Script: {instanceID: 11940}
-    - Class: 114
-      Script: {instanceID: 12136}
-    - Class: 114
-      Script: {instanceID: 12464}
-    - Class: 114
-      Script: {instanceID: 12924}
-    - Class: 114
-      Script: {instanceID: 13006}
-    - Class: 114
-      Script: {instanceID: 13282}
-    - Class: 114
-      Script: {instanceID: 13424}
-    - Class: 114
-      Script: {instanceID: 13926}
-    - Class: 114
-      Script: {instanceID: 13964}
-    - Class: 114
-      Script: {instanceID: 14218}
-    - Class: 114
-      Script: {instanceID: 14240}
-    - Class: 114
-      Script: {instanceID: 14248}
-    - Class: 114
-      Script: {instanceID: 14620}
-    - Class: 114
-      Script: {instanceID: 15400}
     - Class: 114
       Script: {instanceID: 16080}
     - Class: 114
@@ -2295,7 +2185,7 @@ ScriptsOnlyBuild:
     className: OfflineModeProperty
   - hash:
       serializedVersion: 2
-      Hash: 6ca5ad98d820d64a5ca6972980b15a35
+      Hash: 70785ae692183a71706ec03f60df702f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Finish
@@ -2501,5 +2391,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/Game.unity
-  - Assets/Scenes/Level2.unity
-  playerPath: D:/Projects/Fruits race Test/test45/Fruits race.exe
+  playerPath: D:/Projects/Fruits race Test/test57/Fruits race.exe

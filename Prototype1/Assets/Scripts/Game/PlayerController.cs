@@ -85,17 +85,10 @@ public class PlayerController : MonoBehaviour
 
 		if (collision.gameObject.tag == "Teleport")
 		{
-			if (GetComponent<PhotonView>().InstantiationId == 0)
+			if (photonView.IsMine)
 			{
-				Destroy(gameObject);
-			}
-			else
-			{
-				if (GetComponent<PhotonView>().IsMine)
-				{
-					PhotonNetwork.Destroy(gameObject);
-					PhotonNetwork.LoadLevel(2);
-				}
+				gameObject.transform.position = new Vector3(0, -457, 0);
+				Camera.main.transform.position = new Vector3(0, -457, -10);
 			}
 		}
 

@@ -14,7 +14,18 @@ public class Finish : MonoBehaviourPunCallbacks
     public Text text;
     public List<Player> playerList;
     public Canvas canvas;
+    ExitGames.Client.Photon.Hashtable props;
+    int score;
+    public Text scoreText;
 
+    private void Start()
+    {
+        props = new ExitGames.Client.Photon.Hashtable();
+        if (PhotonNetwork.LocalPlayer.CustomProperties["score"] != null)
+            props.Add("score", (int)PhotonNetwork.LocalPlayer.CustomProperties["score"]);
+        else
+            props.Add("score", 0);
+    }
     private void FixedUpdate()
     {
         if (canvas.enabled == true)
@@ -36,7 +47,7 @@ public class Finish : MonoBehaviourPunCallbacks
         for (int i = 0; i < playerList.Count; i++)
         {
             int rank = i + 1;
-            text.text += rank + ". " + playerList[i].NickName + "\n";
+            text.text += rank + ". " + playerList[i].NickName + " счёт: "+playerList[i].CustomProperties["score"] + "\n";
         }
     }
     public static int sortByScore(Player a, Player b)
@@ -44,18 +55,28 @@ public class Finish : MonoBehaviourPunCallbacks
         return b.GetScore().CompareTo(a.GetScore());
     }
 
+    public void SendScore(int scoreReceived)
+    {
+        score = (int)PhotonNetwork.LocalPlayer.CustomProperties["score"];
+        score += scoreReceived;
+        scoreText.text = "Счёт: " + score.ToString();
+        SetCustomProperties(score);
+    }
+
+    void SetCustomProperties(int score)
+    {
+        props["score"] = score;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "MainCharacter")
         {
-            if (GetComponent<PhotonView>().IsMine)
-            {
-                PhotonNetwork.LocalPlayer.SetScore(PlayerPrefs.GetInt("score_temp") + 3);
-                PlayerPrefs.SetInt("score_temp", 3);
-            }
-            else
-                PhotonNetwork.LocalPlayer.SetScore(PlayerPrefs.GetInt("score_temp"));
-            PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("score_temp"));
+            GameObject[] players = GameObject.FindGameObjectsWithTag("MainCharacter");
+            players[0].SetActive(false);
+            players[1].SetActive(false);
+            SendScore(3);
             canvas.enabled = true;
         }
     }

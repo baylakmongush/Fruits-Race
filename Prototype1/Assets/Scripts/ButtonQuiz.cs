@@ -66,20 +66,14 @@ public class ButtonQuiz : MonoBehaviour
         string str1 = text.text.Trim();
         string str2 = tasks.TrueAns.Trim();
 
-            if (str1 == str2 && photonView.IsMine)
-            {
-                ImageButton.color = Color.green;
-                PlayerController.isTrue = true;
-                SendScore(2, 1);
-            }
-            else if (str1 == str2 && !photonView.IsMine)
-            {
-                ImageButton.color = Color.green;
-                PlayerController.isTrue = true;
-                SendScore(2, 1);
-            }
+        if (str1 == str2)
+        {
+            ImageButton.color = Color.green;
+            PlayerController.isTrue = true;
+            SendScore(2, 1);
+        }
         else
-                ImageButton.color = Color.red;
+            ImageButton.color = Color.red;
             for (int i = 0; i < btns.Length; i++)
                 btns[i].enabled = false;
             canvasQuitQuiz.enabled = true;
