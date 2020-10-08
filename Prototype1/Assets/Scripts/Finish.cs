@@ -77,6 +77,7 @@ public class Finish : MonoBehaviourPunCallbacks
             players[0].SetActive(false);
             players[1].SetActive(false);
             SendScore(3);
+            PlayerPrefs.SetInt("Score", (int)PhotonNetwork.LocalPlayer.CustomProperties["score"]);
             canvas.enabled = true;
         }
     }
