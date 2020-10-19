@@ -17,6 +17,7 @@ public class Finish : MonoBehaviourPunCallbacks
     ExitGames.Client.Photon.Hashtable props;
     int score;
     public Text scoreText;
+    PhotonView photonView;
 
     private void Start()
     {
@@ -25,6 +26,7 @@ public class Finish : MonoBehaviourPunCallbacks
             props.Add("score", (int)PhotonNetwork.LocalPlayer.CustomProperties["score"]);
         else
             props.Add("score", 0);
+        photonView = GetComponent<PhotonView>();
     }
     private void FixedUpdate()
     {
@@ -47,7 +49,7 @@ public class Finish : MonoBehaviourPunCallbacks
         for (int i = 0; i < playerList.Count; i++)
         {
             int rank = i + 1;
-            text.text += rank + ". " + playerList[i].NickName + " счёт: "+playerList[i].CustomProperties["score"] + "\n";
+            text.text += rank + ". " + SaveLogin.username_Save + " счёт: "+playerList[i].CustomProperties["score"] + "\n";
         }
     }
     public static int sortByScore(Player a, Player b)
@@ -61,6 +63,7 @@ public class Finish : MonoBehaviourPunCallbacks
         score += scoreReceived;
         scoreText.text = "Счёт: " + score.ToString();
         SetCustomProperties(score);
+        SaveLogin.SetStats((int)PhotonNetwork.LocalPlayer.CustomProperties["score"]);
     }
 
     void SetCustomProperties(int score)
@@ -73,11 +76,9 @@ public class Finish : MonoBehaviourPunCallbacks
     {
         if (collision.gameObject.tag == "MainCharacter")
         {
-            GameObject[] players = GameObject.FindGameObjectsWithTag("MainCharacter");
-            players[0].SetActive(false);
-            players[1].SetActive(false);
+            GameObject player = GameObject.FindGameObjectWithTag("MainCharacter");
+            player.SetActive(false);
             SendScore(3);
-            PlayerPrefs.SetInt("Score", (int)PhotonNetwork.LocalPlayer.CustomProperties["score"]);
             canvas.enabled = true;
         }
     }

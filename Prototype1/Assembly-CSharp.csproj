@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\PlayFabManager.cs" />
     <Compile Include="Assets\Scripts\Quiz.cs" />
+    <Compile Include="Assets\Scripts\SaveLogin.cs" />
     <Compile Include="Assets\Scripts\Tasks.cs" />
     <Compile Include="Assets\Scripts\Virus.cs" />
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.xml" />
