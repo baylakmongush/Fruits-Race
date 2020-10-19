@@ -197,7 +197,7 @@ public class PlayerController : MonoBehaviour
 		{
 			if (canvas)
 			{
-				if (canvas.enabled == false)// && (PhotonNetwork.CurrentRoom.PlayerCount == 2 || GameObject.FindGameObjectsWithTag("MainCharacter").Length == 2))
+				if (canvas.enabled == false && (PhotonNetwork.CurrentRoom.PlayerCount == 2 || GameObject.FindGameObjectsWithTag("MainCharacter").Length == 2))
 				{
 					FindHit();
 					WalkPlayer();

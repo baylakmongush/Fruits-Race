@@ -64,6 +64,12 @@ public class PlayFabManager : MonoBehaviour
 		auth.enabled = false;
 	}
 
+	public void AutoOpen()
+	{
+		reg.enabled = false;
+		auth.enabled = true;
+	}
+
 	public void Register()
 	{
 		RegisterPlayFabUserRequest request = new RegisterPlayFabUserRequest();
@@ -76,8 +82,6 @@ public class PlayFabManager : MonoBehaviour
 			reg.enabled = false;
 		}, error => {
 			log2.text = error.GenerateErrorReport();
-			Debug.LogError(error.GenerateErrorReport());
-			//log2.text = "пароль - от 6 символов и введите EMAIL";
 		});
 	}
 	#endregion Authorization
